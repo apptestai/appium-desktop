@@ -61,16 +61,23 @@ const StopButton = withTranslation(StopButtonComponent);
 
 class StartSessionButtonComponent extends Component {
   render () {
+    // const {serverStatus, startSession, t} = this.props;
+    // if (serverStatus !== STATUS_STOPPED && serverStatus !== STATUS_STOPPING) {
+    //   return <Tooltip title={t('Start Inspector Session')}>
+    //     <Button className={styles.serverButton} id='startNewSessionBtn'
+    //       icon="search"
+    //       onClick={startSession} />
+    //   </Tooltip>;
+    // } else {
+    //   return null;
+    // }
+    //MODIFIED BY MO: invisible inspector
     const {serverStatus, startSession, t} = this.props;
-    if (serverStatus !== STATUS_STOPPED && serverStatus !== STATUS_STOPPING) {
-      return <Tooltip title={t('Start Inspector Session')}>
-        <Button className={styles.serverButton} id='startNewSessionBtn'
-          icon="search"
-          onClick={startSession} />
-      </Tooltip>;
-    } else {
-      return null;
-    }
+    return <Tooltip title={t('Show Connected Devices')}>
+      <Button className={styles.serverButton} id='startNewSessionBtn'
+        icon="search"
+        onClick={startSession} />
+    </Tooltip>;
   }
 }
 

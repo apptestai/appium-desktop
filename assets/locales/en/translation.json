@@ -1,4 +1,4 @@
-{
+{  
   "en": "English",
   "de": "Deutsch",
   "ru": "Русский",
@@ -315,5 +315,9 @@
   "TestingBot Key": "TestingBot Key",
   "TestingBot Secret": "TestingBot Secret",
   "Select Cloud Providers": "Select Cloud Providers",
-  "Advanced Settings": "Advanced Settings"
+  "Advanced Settings": "Advanced Settings",
+  "Show Connected Devices": "Show list of devices attached",
+  "Devices": "Devices",
+  "Edit ANDROID_HOME in configurations": "The adb command was not found. Please edit ANDROID_HOME in configurations.",
+  "reloadDevices": "Reload Devices"
 }

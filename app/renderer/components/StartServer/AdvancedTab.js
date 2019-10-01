@@ -130,6 +130,50 @@ class AdvancedTab extends Component {
   render () {
     const {startServer, serverStarting, presetSaving, serverVersion, t} = this.props;
 
+    // return (
+    //   <div className={styles.advancedForm}>
+    //     <form onSubmit={startServer}>
+    //       <div className={styles.inputSection}>
+    //         <div className={styles.secTitle}>{t('General')}</div>
+    //         <div className={styles.secBody}>
+    //           {this.buildInput('address', 'text', t('Server Address'))}
+    //           {this.buildInput('port', 'text', t('Server Port'))}
+    //           {this.buildInput('log', 'text', t('Logfile Path'))}
+    //           {this.buildInput('loglevel', 'text', t('Log Level'))}
+    //           {this.buildInput('tmpDir', 'text', t('Override Temp Path'))}
+    //           {this.buildInput('nodeconfig', 'text', t('Node Config File Path'))}
+    //           {this.buildInput('localTimezone', 'checkbox', t('Local Timezone'))}
+    //           {this.buildInput('sessionOverride', 'checkbox', t('Allow Session Override'))}
+    //           {this.buildInput('logTimestamp', 'checkbox', t('Log Timestamps'))}
+    //           {this.buildInput('logNoColors', 'checkbox', t('Supress Log Color'))}
+    //           {this.buildInput('enforceStrictCaps', 'checkbox', t('Strict Caps Mode'))}
+    //           {this.buildInput('relaxedSecurityEnabled', 'checkbox', t('Relaxed Security'))}
+    //           {this.buildInput('defaultCapabilities', 'textarea', t('Default Capabilities'))}
+    //         </div>
+    //
+    //         <div className={styles.secTitle}>{t('iOS')}</div>
+    //         <div className={styles.secBody}>
+    //           {this.buildInput('wdaLocalPort', 'text', t('WebDriverAgent Port'))}
+    //           {this.buildInput('callbackHost', 'text', t('executeAsync Callback Host'))}
+    //           {this.buildInput('callbackPort', 'text', t('executeAsync Callback Port'))}
+    //         </div>
+    //
+    //         <div className={styles.secTitle}>{t('Android')}</div>
+    //         <div className={styles.secBody}>
+    //           {this.buildInput('bootstrapPort', 'text', t('Bootstrap Port'))}
+    //           {this.buildInput('selendroidPort', 'text', t('Selendroid Port'))}
+    //           {this.buildInput('chromeDriverPort', 'text', t('Chromedriver Port'))}
+    //           {this.buildInput('chromedriverExecutable', 'text', t('Chromedriver Binary Path'))}
+    //         </div>
+    //       </div>
+    //       <div className={styles.actions}>
+    //         <StartButton {...{serverStarting, startServer, serverVersion}} />
+    //         <SavePresetButton {...{savePreset: this.openPresetModal.bind(this), presetSaving}} />
+    //       </div>
+    //     </form>
+    //     {this.modal()}
+    //   </div>
+    // MODIFIED BY MO: invisiable iOS
     return (
       <div className={styles.advancedForm}>
         <form onSubmit={startServer}>
@@ -149,13 +193,6 @@ class AdvancedTab extends Component {
               {this.buildInput('enforceStrictCaps', 'checkbox', t('Strict Caps Mode'))}
               {this.buildInput('relaxedSecurityEnabled', 'checkbox', t('Relaxed Security'))}
               {this.buildInput('defaultCapabilities', 'textarea', t('Default Capabilities'))}
-            </div>
-
-            <div className={styles.secTitle}>{t('iOS')}</div>
-            <div className={styles.secBody}>
-              {this.buildInput('wdaLocalPort', 'text', t('WebDriverAgent Port'))}
-              {this.buildInput('callbackHost', 'text', t('executeAsync Callback Host'))}
-              {this.buildInput('callbackPort', 'text', t('executeAsync Callback Port'))}
             </div>
 
             <div className={styles.secTitle}>{t('Android')}</div>
