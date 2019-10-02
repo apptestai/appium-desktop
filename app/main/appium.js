@@ -158,7 +158,9 @@ export function createNewSessionWindow (win) {
 
   // When the main window is closed, close the session window too
   win.once('closed', () => {
-    sessionWin.close();
+	if (sessionWin) {
+		sessionWin.close();
+	}    
   });
 }
 
@@ -395,5 +397,5 @@ export function initializeIpc (win) {
   connectGetEnv();
   connectSaveEnv();
 
-  setTimeout(checkNewUpdates, 10000);
+  // setTimeout(checkNewUpdates, 10000);
 }

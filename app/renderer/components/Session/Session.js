@@ -13,7 +13,8 @@ import CloudProviders from './CloudProviders';
 import CloudProviderSelector from './CloudProviderSelector';
 
 // ADDED BY MO: Device Tab
-import ServerTabDevices from './ServerTabDevices'
+import ServerTabDevices from './ServerTabDevices';
+import ServerTabAdvanced from './ServerTabAdvanced';
 
 const {TabPane} = Tabs;
 
@@ -21,17 +22,17 @@ const ADD_CLOUD_PROVIDER = 'addCloudProvider';
 
 export default class Session extends Component {
 
-  componentWillMount () {
-    const {setLocalServerParams, getSavedSessions, setSavedServerParams, setVisibleProviders, getRunningSessions} = this.props;
-    (async () => {
-      // REMOVED BY MO: do not create session
-      // await getSavedSessions();
-      // await setSavedServerParams();
-      // await setLocalServerParams();
-      // await setVisibleProviders();
-      // getRunningSessions();
-    })();
-  }
+  // REMOVED BY MO: do not create session
+  // componentWillMount () {
+  //   const {setLocalServerParams, getSavedSessions, setSavedServerParams, setVisibleProviders, getRunningSessions} = this.props;
+  //   (async () => {
+  //     await getSavedSessions();
+  //     await setSavedServerParams();
+  //     await setLocalServerParams();
+  //     await setVisibleProviders();
+  //     getRunningSessions();
+  //   })();
+  // }
 
   handleSelectServerTab (tab) {
     const {changeServerType, addCloudProvider} = this.props;
@@ -125,7 +126,7 @@ export default class Session extends Component {
   // }
   //MODIFIED BY MO: show device list
   render () {
-    const {serverType, sessionLoading, t} = this.props;
+    const {serverType, sessionLoading, setListOfdevicesAttached, t} = this.props;
 
     return [
       <Spin spinning={!!sessionLoading} key="main">
@@ -133,12 +134,18 @@ export default class Session extends Component {
           <div id='serverTypeTabs' className={SessionStyles.serverTab}>
             <Tabs activeKey={serverType} onChange={(tab) => this.handleSelectServerTab(tab)} className={SessionStyles.serverTabs}>
               {[
-                <TabPane tab={t('Devices')} key="local">
+                <TabPane tab={t('List of devices attached')} key="local" className={SessionStyles.scrollingTab}>
                   <ServerTabDevices {...this.props} />
+                </TabPane>,
+                <TabPane tab={t('apptest.ai')} key="advanced" className={SessionStyles.scrollingTab}>
+                  <ServerTabAdvanced {...this.props} />
                 </TabPane>
               ]}
             </Tabs>
           </div>
+          <div className={SessionStyles.sessionFooter}>
+            {serverType == 'local' && <Button type="primary" onClick={setListOfdevicesAttached}>{t('Reload')}</Button>}
+          </div> 
         </div>
       </Spin>
     ];

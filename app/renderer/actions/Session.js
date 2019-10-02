@@ -9,6 +9,10 @@ import { setSessionDetails } from './Inspector';
 import i18n from '../../configs/i18next.config.renderer';
 import CloudProviders from '../components/Session/CloudProviders';
 
+import path from 'path';
+import { exec } from 'teen_process';
+import log from 'electron-log';
+
 export const NEW_SESSION_REQUESTED = 'NEW_SESSION_REQUESTED';
 export const NEW_SESSION_BEGAN = 'NEW_SESSION_BEGAN';
 export const NEW_SESSION_DONE = 'NEW_SESSION_DONE';
@@ -685,5 +689,48 @@ export function setVisibleProviders () {
   return async (dispatch) => {
     const providers = await settings.get(VISIBLE_PROVIDERS);
     dispatch({type: SET_PROVIDERS, providers});
+  };
+}
+
+
+// ADDED BY MO: ENV
+export const GET_ENV = 'ENV';
+export function getEnvironmentVariables () {
+  return async (dispatch) => {
+	const envVariables = await settings.get(GET_ENV);
+	dispatch({type: GET_ENV, envVariables});
+  };
+}
+
+export const SET_LIST_OF_DEVICES_ATTACHED = 'SET_LIST_OF_DEVICES_ATTACHED';
+export function setListOfdevicesAttached () {
+  return async (dispatch) => {
+	let androidHome = null;
+	const envVariables = await settings.get(GET_ENV);	
+	if (envVariables) {
+		androidHome = envVariables['ANDROID_HOME'];
+	}	  
+	log.info(`ANDROID_HOME: ${androidHome}`);
+  
+	if (androidHome) {
+		const adbPath = path.join(androidHome, 'platform-tools/adb')
+		log.info(`Exec '${adbPath} devices -l' command`);
+		let {stdout, stderr, code} = await exec(adbPath, ['devices', '-l']);
+		log.info(stdout);
+		let listOfdevicesAttached = [];
+		try {
+			listOfdevicesAttached = stdout.split("\n");
+			if (listOfdevicesAttached && listOfdevicesAttached.length > 0) {
+				listOfdevicesAttached = listOfdevicesAttached.slice(1);
+				listOfdevicesAttached = listOfdevicesAttached.filter(String);
+			}
+		} catch (ign) {
+			log.error(ign);
+		}
+		
+		dispatch({type: SET_LIST_OF_DEVICES_ATTACHED, listOfdevicesAttached});		
+	} else {
+		log.warn(`The adb path was not found.`);
+	}
   };
 }

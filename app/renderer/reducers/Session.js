@@ -1,5 +1,6 @@
 import _, {omit} from 'lodash';
 import formatJSON from 'format-json';
+import log from 'electron-log';
 
 import { NEW_SESSION_REQUESTED, NEW_SESSION_BEGAN, NEW_SESSION_DONE,
          SAVE_SESSION_REQUESTED, SAVE_SESSION_DONE, GET_SAVED_SESSIONS_REQUESTED,
@@ -10,7 +11,7 @@ import { NEW_SESSION_REQUESTED, NEW_SESSION_BEGAN, NEW_SESSION_DONE,
          CHANGE_SERVER_TYPE, SET_SERVER_PARAM, SET_SERVER, SET_ATTACH_SESS_ID,
          GET_SESSIONS_REQUESTED, GET_SESSIONS_DONE,
          ENABLE_DESIRED_CAPS_EDITOR, ABORT_DESIRED_CAPS_EDITOR, SAVE_RAW_DESIRED_CAPS, SET_RAW_DESIRED_CAPS, SHOW_DESIRED_CAPS_JSON_ERROR,
-         IS_ADDING_CLOUD_PROVIDER, SET_PROVIDERS,
+         IS_ADDING_CLOUD_PROVIDER, SET_PROVIDERS, GET_ENV,SET_LIST_OF_DEVICES_ATTACHED,
          ServerTypes } from '../actions/Session';
 
 const visibleProviders = []; // Pull this from "electron-settings"
@@ -302,6 +303,19 @@ export default function session (state = INITIAL_STATE, action) {
       return {
         ...state,
         visibleProviders: action.providers || []
+      };
+	 
+	//ADDED BY MO
+    case GET_ENV:
+      return {
+        ...state,
+		envVariables: action.envVariables || {}
+      };
+	  
+    case SET_LIST_OF_DEVICES_ATTACHED:
+      return {
+        ...state,
+	    listOfdevicesAttached: action.listOfdevicesAttached || {}
       };
 
     default:

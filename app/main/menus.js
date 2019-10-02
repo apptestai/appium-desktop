@@ -22,20 +22,35 @@ function macMenuAppium () {
     submenu: [{
       label: i18n.t('About Appium'),
       selector: 'orderFrontStandardAboutPanel:'
-    }, {
-      label: i18n.t('Check for updates'),
-      click () {
-        checkNewUpdates(true);
-      }
-    }, {
+    }, 
+	
+	// {
+	//       label: i18n.t('Check for updates'),
+	//       click () {
+	//         checkNewUpdates(true);
+	//       }
+	//     },
+	
+	{
       type: 'separator'
-    }, {
-      label: i18n.t('New Session Window…'),
+    }, 
+	
+	// {
+	//       label: i18n.t('New Session Window…'),
+	//       accelerator: 'Command+N',
+	//       click () {
+	//         createNewSessionWindow(mainWindow);
+	//       }
+	//     },
+	{
+      label: i18n.t('Advanced Settings'),
       accelerator: 'Command+N',
       click () {
         createNewSessionWindow(mainWindow);
       }
-    }, {
+    }, 	
+	
+	{
       label: i18n.t('Configurations…'),
       click () {
         createNewConfigWindow(mainWindow);
@@ -216,14 +231,14 @@ function otherMenuFile () {
   }];
 
   // If it's Windows, add a 'Check for Updates' menu option
-  if (process.platform === 'win32') {
-    fileSubmenu.splice(1, 0, {
-      label: i18n.t('&Check for updates'),
-      click () {
-        checkNewUpdates(true);
-      }
-    });
-  }
+  // if (process.platform === 'win32') {
+  //   fileSubmenu.splice(1, 0, {
+  //     label: i18n.t('&Check for updates'),
+  //     click () {
+  //       checkNewUpdates(true);
+  //     }
+  //   });
+  // }
 
   return {
     label: i18n.t('&File'),

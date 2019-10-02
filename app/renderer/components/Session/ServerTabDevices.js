@@ -1,10 +1,7 @@
 // ADDED BY MO: Device Tab
-import { ipcRenderer } from 'electron';
-import { exec } from 'teen_process';
-import path from 'path';
 import log from 'electron-log';
 import React, { Component } from 'react';
-import { Form, Card, List } from 'antd';
+import { Form, Card, List, Row, Col, Button } from 'antd';
 import SessionStyles from './Session.css';
 
 export default class ServerTabDevices extends Component {
@@ -12,37 +9,37 @@ export default class ServerTabDevices extends Component {
 		super(props);
 		this.state = {
 			isLoaded: false,
-			devices: 'empty'
+			devices: []
 		};
+		this.androidHome = null;		
 	}
 	
-	componentDidMount () {
-		const tab = this;
-		const adbDevices = async () => {
-			const adbPath = path.join(process.env.ANDROID_HOME, 'platform-tools/adb')
-			log.info(`Exec '${adbPath} devices -l' command`);
-			let {stdout, stderr, code} = await exec(adbPath, ['devices', '-l']);
-			log.info(stdout);
-			
-			tab.setState({
-				...tab.state,
-				isLoaded: true,
-				devices: stdout.split("\n")
-			});
-		};
-		adbDevices();
+	componentWillMount () {
+		const {getEnvironmentVariables, setListOfdevicesAttached} = this.props;
+		(async () => {
+			await getEnvironmentVariables();
+			await setListOfdevicesAttached();
+		})();
 	}
+	
 	render () {
-		const {t} = this.props;
-		const {isLoaded, devices} = this.state;
-
-		return <Form>
-		  <Form.Item>
-			{!process.env.ANDROID_HOME && <Card> <p className={SessionStyles.localDesc}>{t('Edit ANDROID_HOME in configurations')} </p></Card>}
-			{isLoaded && <List size="small" dataSource={devices} renderItem={item => <List.Item className={SessionStyles.localDesc}>{item}</List.Item>} />}
-		  </Form.Item>
-		</Form>;
+		const {t, listOfdevicesAttached, envVariables} = this.props;
+		const hasADBPath = !!envVariables && !!envVariables['ANDROID_HOME'];
 		
+		return (
+			<Form>
+				{!hasADBPath &&  <Row key="hidden"><Col span={24}><Form.Item><Card><p className={SessionStyles.localDesc}>{t('Edit ANDROID_HOME in configurations')} </p></Card></Form.Item></Col></Row>}
+				<Row key="deviceList">
+					<Col span={24}>
+						<Form.Item>
+							<List className={SessionStyles.deviceList} dataSource={listOfdevicesAttached} renderItem={item => (
+								<List.Item className={SessionStyles.localDesc}>{item}</List.Item>
+							)} />
+						</Form.Item>
+					</Col>
+				</Row>
+			</Form>
+		);		
 	}
 }
 

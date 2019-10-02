@@ -52,9 +52,9 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: isDev ? 1200 : 650,
-    height: 600,
+    height: 700,
     minWidth: 650,
-    minHeight: 600,
+    minHeight: 700,
   });
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);

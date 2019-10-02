@@ -316,8 +316,6 @@
   "TestingBot Secret": "TestingBot Secret",
   "Select Cloud Providers": "Select Cloud Providers",
   "Advanced Settings": "Advanced Settings",
-  "Show Connected Devices": "Show list of devices attached",
-  "Devices": "Devices",
-  "Edit ANDROID_HOME in configurations": "The adb command was not found. Please edit ANDROID_HOME in configurations.",
-  "reloadDevices": "Reload Devices"
+  "List of devices attached": "List of devices attached",
+  "Edit ANDROID_HOME in configurations": "The adb command was not found. Please edit ANDROID_HOME in configurations."
 }

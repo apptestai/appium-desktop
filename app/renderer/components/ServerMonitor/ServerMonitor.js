@@ -73,7 +73,7 @@ class StartSessionButtonComponent extends Component {
     // }
     //MODIFIED BY MO: invisible inspector
     const {serverStatus, startSession, t} = this.props;
-    return <Tooltip title={t('Show Connected Devices')}>
+    return <Tooltip title={t('Advanced')}>
       <Button className={styles.serverButton} id='startNewSessionBtn'
         icon="search"
         onClick={startSession} />
